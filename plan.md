@@ -21,19 +21,20 @@
 ## Phase 1 — Squelette du projet Xcode
 
 > **Approche retenue (option C) :** un `Package.swift` (executableTarget, macOS 14) sert
-> de squelette buildable pour valider le code avec `swift build`. Le `.xcodeproj` (et son
-> `Info.plist` avec `LSUIElement`) sera branché ensuite, par-dessus les mêmes sources.
-> ✅ `Package.swift` créé · `swift build` passe sans warning.
+> de squelette buildable pour valider le code avec `swift build`. Le `.xcodeproj` est
+> généré par **XcodeGen** depuis `project.yml` (source de vérité), par-dessus les mêmes sources.
+> ✅ `Package.swift` · `swift build` sans warning · `.xcodeproj` généré · `xcodebuild` → BUILD SUCCEEDED.
 
-- [ ] Créer le projet Xcode `ClawdNotch.xcodeproj` (app macOS, SwiftUI lifecycle)
-  - [ ] Target macOS 14.0 minimum
-  - [ ] Swift 5.9+
-  - [ ] Aucune dépendance externe
-- [ ] Configurer `Info.plist` :
-  - [ ] `LSUIElement = YES` (pas d'icône Dock, app en arrière-plan)
-  - [ ] Bundle identifier (`com.<maintainer>.clawdnotch` ou similaire)
-  - [ ] Version `0.1.0`
-- [ ] Vérifier que l'app compile et se lance sans fenêtre ni icône Dock
+- [x] Créer le projet Xcode `ClawdNotch.xcodeproj` (app macOS, SwiftUI lifecycle) — généré via `project.yml` + XcodeGen
+  - [x] Target macOS 14.0 minimum
+  - [x] Swift 5.9+
+  - [x] Aucune dépendance externe
+- [x] Configurer `Info.plist` :
+  - [x] `LSUIElement = YES` (pas d'icône Dock, app en arrière-plan) — vérifié dans le bundle
+  - [x] Bundle identifier (`com.jherduin.clawdnotch`)
+  - [x] Version `0.1.0`
+- [x] Vérifier que l'app compile (`xcodebuild` → BUILD SUCCEEDED, `.app` produit)
+- [ ] Vérifier qu'elle se lance sans fenêtre ni icône Dock — _test live à faire (signature ad-hoc requise sur Apple Silicon)_
 
 ---
 

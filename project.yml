@@ -1,0 +1,43 @@
+# Description du projet pour XcodeGen.
+# Source de vérité : régénère ClawdNotch.xcodeproj via `xcodegen generate`.
+name: ClawdNotch
+
+options:
+  bundleIdPrefix: com.jherduin
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: "5.9"
+    # Build local et CI sans signing (cf. build.yml en Phase 6).
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGNING_ALLOWED: "NO"
+
+targets:
+  ClawdNotch:
+    type: application
+    platform: macOS
+    sources:
+      - path: ClawdNotch
+        excludes:
+          - "Info.plist"
+    info:
+      path: ClawdNotch/Info.plist
+      properties:
+        LSUIElement: true          # pas d'icône Dock, app en arrière-plan
+        CFBundleName: ClawdNotch
+        CFBundleDisplayName: ClawdNotch
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        NSHumanReadableCopyright: "© 2026 jherduin — MIT License"
+        NSPrincipalClass: NSApplication
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jherduin.clawdnotch
+        GENERATE_INFOPLIST_FILE: "NO"
