@@ -22,6 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowController: NotchWindowController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        notchLog.info("App lancée — \(NSScreen.screens.count) écran(s), main=\(NSScreen.main != nil)")
         // Pas d'icône dans le Dock, app en arrière-plan.
         NSApp.setActivationPolicy(.accessory)
 

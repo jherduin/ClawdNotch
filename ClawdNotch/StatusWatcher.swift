@@ -60,6 +60,7 @@ final class StatusWatcher: ObservableObject {
         let raw = (try? String(contentsOf: fileURL, encoding: .utf8)) ?? ""
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         let newStatus = NotchStatus(rawValue: trimmed) ?? .idle
+        notchLog.info("Statut lu: \"\(trimmed, privacy: .public)\" -> \(newStatus.rawValue, privacy: .public)")
 
         // `@Published` doit muter sur le thread principal pour SwiftUI.
         DispatchQueue.main.async { [weak self] in
