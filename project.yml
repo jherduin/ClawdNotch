@@ -41,3 +41,9 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jherduin.clawdnotch
         GENERATE_INFOPLIST_FILE: "NO"
+    # Force XcodeGen à générer un scheme partagé (xcshareddata) pour que
+    # `xcodebuild -scheme ClawdNotch` fonctionne en CI sans ouvrir Xcode.
+    scheme:
+      build:
+        targets:
+          ClawdNotch: all

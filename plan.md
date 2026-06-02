@@ -127,17 +127,18 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ## Phase 6 — Templates & automatisation GitHub
 
-- [ ] `.github/ISSUE_TEMPLATE/bug_report.md` (version macOS, modèle MacBook, version ClawdNotch, repro, logs Console.app)
-- [ ] `.github/ISSUE_TEMPLATE/feature_request.md` (problème résolu, solution, alternatives)
-- [ ] `.github/PULL_REQUEST_TEMPLATE.md` (type de changement, CHANGELOG, testé avec/sans notch, commits conformes)
-- [ ] `.github/workflows/build.yml` :
-  - [ ] runner `macos-14`
-  - [ ] build sans signing sur push et PR vers `main`
-- [ ] `.github/workflows/release.yml` :
-  - [ ] déclenché sur tag `v*`
-  - [ ] produit un `.dmg`
-  - [ ] crée la GitHub Release et attache le `.dmg`
-- [ ] Protéger la branche `main` (réglage GitHub : PR obligatoire, pas de push direct)
+- [x] `.github/ISSUE_TEMPLATE/bug_report.md` (version macOS, modèle MacBook, version ClawdNotch, repro, logs Console.app)
+- [x] `.github/ISSUE_TEMPLATE/feature_request.md` (problème résolu, solution, alternatives)
+- [x] `.github/PULL_REQUEST_TEMPLATE.md` (type de changement, CHANGELOG, testé avec/sans notch, commits conformes)
+- [x] `.github/workflows/build.yml` :
+  - [x] runner `macos-14`
+  - [x] build sans signing sur push et PR vers `main`
+  - _Prérequis : scheme partagé `ClawdNotch` ajouté à `project.yml` (sinon `xcodebuild -scheme` échoue en CI)._
+- [x] `.github/workflows/release.yml` :
+  - [x] déclenché sur tag `v*`
+  - [x] produit un `.dmg` (via `hdiutil`, avec lien vers `/Applications`)
+  - [x] crée la GitHub Release et attache le `.dmg` (`gh release create --generate-notes`)
+- [ ] Protéger la branche `main` (réglage GitHub : PR obligatoire, pas de push direct) — _à faire côté GitHub, hors code (cf. note en fin de PR)._
 
 ---
 
