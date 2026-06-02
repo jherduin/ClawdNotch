@@ -26,13 +26,14 @@ No window, no Dock icon — just a discreet glow that tells you, at a glance, wh
 
 ## Install
 
-### Homebrew _(planned for v1.0.0)_
+### Homebrew
 
 ```sh
 brew install --cask jherduin/tap/clawdnotch
 ```
 
-> Not available yet — the Homebrew cask ships with the first stable release. Until then, use the manual download.
+> ClawdNotch isn't notarized, so on first launch macOS Gatekeeper may block it. Right-click the app
+> → **Open** → **Open**, or run `xattr -dr com.apple.quarantine "/Applications/ClawdNotch.app"`.
 
 ### Manual download
 
