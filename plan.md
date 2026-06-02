@@ -99,27 +99,29 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ## Phase 4 — Hooks Claude Code
 
-- [ ] Documenter la config des 3 hooks dans `~/.claude/settings.json` :
-  - [ ] `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
-  - [ ] `PostToolUse` → écrire `idle`
-  - [ ] `Stop` → écrire `waiting`
-- [ ] Fournir un snippet JSON prêt à copier dans le README
-- [ ] Tester le cycle complet en lançant une vraie commande Claude Code
+- [x] Documenter la config des hooks dans `~/.claude/settings.json` :
+  - [x] `UserPromptSubmit` + `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
+  - [x] `Stop` → écrire `waiting`
+  - [x] `SessionEnd` → écrire `idle`
+  - _Mapping corrigé après test live : `PostToolUse → idle` retiré car il faisait clignoter le halo
+    entre deux outils d'un même tour (`working → idle → working`)._
+- [x] Fournir un snippet JSON prêt à copier (voir `docs/hooks.md` ; le README y renverra en Phase 5)
+- [x] Tester le cycle complet en lançant une vraie commande Claude Code
 
 ---
 
 ## Phase 5 — Documentation open-source
 
-- [ ] `README.md` (dans l'ordre imposé par CLAUDE.md) :
-  - [ ] GIF du notch animé (à enregistrer une fois l'app fonctionnelle)
-  - [ ] Badges : version / license / build / macOS
-  - [ ] Description deux lignes
-  - [ ] Installation (Homebrew prioritaire dès v1.0.0, téléchargement manuel en fallback)
-  - [ ] Setup des hooks
-  - [ ] Lien vers CONTRIBUTING
-- [ ] `CONTRIBUTING.md` (conventions de commit, branching, process de PR)
-- [ ] `CODE_OF_CONDUCT.md` (Contributor Covenant)
-- [ ] `CHANGELOG.md` (format Keep a Changelog, section `[Unreleased]`)
+- [~] `README.md` (dans l'ordre imposé par CLAUDE.md) :
+  - [ ] GIF du notch animé (à enregistrer une fois l'app lancée — emplacement réservé `docs/demo.gif`)
+  - [x] Badges : version / license / build / macOS
+  - [x] Description deux lignes
+  - [x] Installation (Homebrew prioritaire dès v1.0.0, téléchargement manuel en fallback)
+  - [x] Setup des hooks
+  - [x] Lien vers CONTRIBUTING
+- [x] `CONTRIBUTING.md` (conventions de commit, branching, process de PR)
+- [x] `CODE_OF_CONDUCT.md` (Contributor Covenant)
+- [x] `CHANGELOG.md` (format Keep a Changelog, section `[Unreleased]`)
 
 ---
 
