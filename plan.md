@@ -110,16 +110,16 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ## Phase 5 — Documentation open-source
 
-- [ ] `README.md` (dans l'ordre imposé par CLAUDE.md) :
-  - [ ] GIF du notch animé (à enregistrer une fois l'app fonctionnelle)
-  - [ ] Badges : version / license / build / macOS
-  - [ ] Description deux lignes
-  - [ ] Installation (Homebrew prioritaire dès v1.0.0, téléchargement manuel en fallback)
-  - [ ] Setup des hooks
-  - [ ] Lien vers CONTRIBUTING
-- [ ] `CONTRIBUTING.md` (conventions de commit, branching, process de PR)
-- [ ] `CODE_OF_CONDUCT.md` (Contributor Covenant)
-- [ ] `CHANGELOG.md` (format Keep a Changelog, section `[Unreleased]`)
+- [~] `README.md` (dans l'ordre imposé par CLAUDE.md) :
+  - [ ] GIF du notch animé (à enregistrer une fois l'app lancée — emplacement réservé `docs/demo.gif`)
+  - [x] Badges : version / license / build / macOS
+  - [x] Description deux lignes
+  - [x] Installation (Homebrew prioritaire dès v1.0.0, téléchargement manuel en fallback)
+  - [x] Setup des hooks
+  - [x] Lien vers CONTRIBUTING
+- [x] `CONTRIBUTING.md` (conventions de commit, branching, process de PR)
+- [x] `CODE_OF_CONDUCT.md` (Contributor Covenant)
+- [x] `CHANGELOG.md` (format Keep a Changelog, section `[Unreleased]`)
 
 ---
 
