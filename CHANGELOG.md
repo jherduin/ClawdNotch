@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) et le pr
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-06-02
+
+### Added
+
+- Distribution via Homebrew : `brew install --cask jherduin/tap/clawdnotch` (tap
+  [`jherduin/homebrew-tap`](https://github.com/jherduin/homebrew-tap)).
+
+Première version stable. Aucun changement de comportement de l'app depuis `0.1.0`.
+
 ## [0.1.0] - 2026-06-02
 
 ### Added
@@ -32,5 +41,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) et le pr
   (fusion automatique avec les hooks existants) ; le bloc JSON manuel reste en fallback dans
   `docs/hooks.md`.
 
-[Unreleased]: https://github.com/jherduin/ClawdNotch/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/jherduin/ClawdNotch/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/jherduin/ClawdNotch/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/jherduin/ClawdNotch/releases/tag/v0.1.0
