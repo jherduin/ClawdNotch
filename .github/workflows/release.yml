@@ -22,6 +22,15 @@ jobs:
         id: version
         run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
+      - name: Sélectionner la dernière Xcode disponible
+        # XcodeGen génère le projet au format Xcode 16 (objectVersion 77) ;
+        # le 15.4 par défaut du runner ne sait pas le lire.
+        run: |
+          XC=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          echo "Xcode sélectionné : $XC"
+          sudo xcode-select -s "$XC"
+          xcodebuild -version
+
       - name: Installer XcodeGen
         run: brew install xcodegen
 
