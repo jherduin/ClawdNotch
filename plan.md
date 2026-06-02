@@ -138,7 +138,7 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
   - [x] déclenché sur tag `v*`
   - [x] produit un `.dmg` (via `hdiutil`, avec lien vers `/Applications`)
   - [x] crée la GitHub Release et attache le `.dmg` (`gh release create --generate-notes`)
-- [ ] Protéger la branche `main` (réglage GitHub : PR obligatoire, pas de push direct) — _à faire côté GitHub, hors code (cf. note en fin de PR)._
+- [x] Protéger la branche `main` (réglage GitHub : PR obligatoire, pas de push direct) — _activé via `gh api` : PR obligatoire, check `Build (sans signing)` requis (`strict`), `enforce_admins: false`, `required_approving_review_count: 0` (mainteneur solo ; passable à 1 avec des collaborateurs)._
 
 ---
 
