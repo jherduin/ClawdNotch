@@ -54,3 +54,30 @@ branche qui existe sur le remote, c'est un tracking cassé → Fetch/Pull, pas P
 
 **Piège annexe** : un « Discard all changes » de GitHub Desktop supprime aussi les
 fichiers *untracked* (c'est ainsi que `tasks/lessons.md` a été effacé une fois).
+
+## `git fetch` peut servir un ref périmé (cache CDN) — `ls-remote` fait foi (2026-06-02)
+
+**Symptôme** : après un merge de PR côté serveur, `gh api .../branches/main` et
+`git ls-remote origin main` renvoyaient le bon SHA (le merge commit `a83be81`),
+mais `git fetch origin` + `git log origin/main` restaient bloqués sur l'ancien
+SHA (`4d539d3`) pendant plusieurs minutes. `merge --ff-only origin/main` →
+« Already up to date » alors que main avait avancé.
+
+**Cause** : l'endpoint smart-HTTP de `fetch` est servi par un cache CDN GitHub qui
+se propage avec un délai, contrairement à `ls-remote`/API (lecture directe).
+
+**Réflexe** : en cas de doute sur l'état distant, **`git ls-remote origin <ref>`
+ou `gh api` sont la source de vérité**, pas la ref de tracking locale. Si l'objet
+cible est déjà en local (ramené par un `gh` ou un fetch partiel), avancer via le
+SHA : `git merge --ff-only <sha>` puis `git update-ref refs/remotes/origin/main <sha>`.
+Vérifier par `git rev-parse HEAD` vs `git ls-remote`, pas par `git log` (l'affichage
+`--oneline` d'un merge commit suit le 2ᵉ parent et prête à confusion).
+
+## Pousser après le merge d'une PR = commit orphelin (2026-06-02)
+
+Un commit poussé sur la branche d'une PR **après** son merge n'est jamais inclus
+(le merge a figé la branche au SHA du moment). Il reste seul sur la branche
+feature et disparaît si on la supprime. **Réflexe** : avant de nettoyer une
+branche mergée, vérifier `git log origin/main..origin/<branche>` ; rapatrier tout
+reste via cherry-pick sur une branche neuve + PR (la protection de `main` interdit
+le push direct).

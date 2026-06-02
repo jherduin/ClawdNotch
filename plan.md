@@ -142,15 +142,15 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ---
 
-## Phase 7 — Première release `v0.1.0`
+## Phase 7 — Première release `v0.1.0` ✅
 
-- [ ] Créer branche `release/v0.1.0`
-- [ ] Vérifier le bump de version dans le projet Xcode
-- [ ] Finaliser le CHANGELOG (`[Unreleased]` → `[v0.1.0] - YYYY-MM-DD`)
-- [ ] Commit `chore(release): bump version to 0.1.0`
-- [ ] Merge dans `main` via PR
-- [ ] Tag `v0.1.0` → vérifier le déclenchement de `release.yml`
-- [ ] Vérifier que la GitHub Release contient bien le `.dmg`
+- [x] Créer branche `release/v0.1.0`
+- [x] Vérifier le bump de version dans le projet Xcode — déjà à `0.1.0` (posé au bootstrap), pas de bump
+- [x] Finaliser le CHANGELOG (`[Unreleased]` → `[0.1.0] - 2026-06-02`)
+- [x] Commit `chore(release): fige le CHANGELOG pour la v0.1.0`
+- [x] Merge dans `main` via PR (#7, CI verte, merge commit `652a4bb`)
+- [x] Tag `v0.1.0` → `release.yml` déclenché (run `26792809400`, success)
+- [x] Vérifier que la GitHub Release contient bien le `.dmg` — `ClawdNotch-0.1.0.dmg` (~105 Ko) attaché
 
 ---
 
