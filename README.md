@@ -40,6 +40,29 @@ brew install --cask jherduin/tap/clawdnotch
 3. On first launch, macOS may block the app (the build isn't signed with a Developer ID):
    right-click the app → **Open** → **Open** to confirm.
 
+## Hooks setup
+
+Once installed, paste this prompt into Claude Code to wire up the hooks automatically:
+
+```text
+Set up the ClawdNotch hooks in my ~/.claude/settings.json so that ~/.claude/notch_status reflects
+what you're doing in real time. Edit the JSON in place, keep it valid, and APPEND to any existing
+hook arrays — do not remove or overwrite my other hooks or settings.
+
+Add these four hooks, each running a single shell command:
+- UserPromptSubmit       → echo working > "$HOME/.claude/notch_status"
+- PreToolUse (matcher "") → echo working > "$HOME/.claude/notch_status"
+- Stop                   → echo waiting > "$HOME/.claude/notch_status"
+- SessionEnd             → echo idle > "$HOME/.claude/notch_status"
+
+If a hook pointing at notch_status already exists, leave it as-is rather than duplicating it.
+When you're done, show me the resulting "hooks" block.
+```
+
+> Prefer to wire it up by hand? See **[docs/hooks.md](docs/hooks.md)**.
+
+---
+
 ## Launch
 
 The app runs in the background with no window and no Dock icon. Launch it with:
@@ -75,38 +98,6 @@ rm -f ~/.claude/notch_status        # remove the status file (optional)
 
 Then delete the ClawdNotch entry from **System Settings → General → Login Items**, and remove the
 ClawdNotch hooks you added to `~/.claude/settings.json` (see below).
-
----
-
-## Hooks setup
-
-ClawdNotch is **passive**: it reads `~/.claude/notch_status` and renders the matching halo.
-The **Claude Code hooks** are what keep that file up to date in real time.
-
-The easiest way to set them up: open Claude Code (in any project) and paste the prompt below. It edits
-`~/.claude/settings.json` for you and **merges** with any hooks you already have instead of
-overwriting them:
-
-```text
-Set up the ClawdNotch hooks in my ~/.claude/settings.json so that ~/.claude/notch_status reflects
-what you're doing in real time. Edit the JSON in place, keep it valid, and APPEND to any existing
-hook arrays — do not remove or overwrite my other hooks or settings.
-
-Add these four hooks, each running a single shell command:
-- UserPromptSubmit       → echo working > "$HOME/.claude/notch_status"
-- PreToolUse (matcher "") → echo working > "$HOME/.claude/notch_status"
-- Stop                   → echo waiting > "$HOME/.claude/notch_status"
-- SessionEnd             → echo idle > "$HOME/.claude/notch_status"
-
-If a hook pointing at notch_status already exists, leave it as-is rather than duplicating it.
-When you're done, show me the resulting "hooks" block.
-```
-
-The halo stays orange for the whole turn (even across multiple tool calls), turns blue when Claude
-hands control back to you, and disappears when the session ends.
-
-> Prefer to wire it up by hand? The full JSON block, coexistence notes, and verification steps live in
-> **[docs/hooks.md](docs/hooks.md)**.
 
 ---
 
