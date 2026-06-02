@@ -89,18 +89,24 @@ Paste this block into `~/.claude/settings.json`:
 ```json
 {
   "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
+    ],
     "PreToolUse": [
       { "matcher": "", "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
     ],
-    "PostToolUse": [
-      { "matcher": "", "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
-    ],
     "Stop": [
       { "hooks": [{ "type": "command", "command": "echo waiting > \"$HOME/.claude/notch_status\"" }] }
+    ],
+    "SessionEnd": [
+      { "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
     ]
   }
 }
 ```
+
+The halo stays orange for the whole turn (even across multiple tool calls), turns blue when Claude
+hands control back to you, and disappears when the session ends.
 
 ⚠️ If your `settings.json` already has a `hooks` key, **append** these blocks to the existing arrays
 instead of overwriting the key. Full details, coexistence with other hooks, and verification steps:

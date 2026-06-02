@@ -89,18 +89,24 @@ Colle ce bloc dans `~/.claude/settings.json` :
 ```json
 {
   "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
+    ],
     "PreToolUse": [
       { "matcher": "", "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
     ],
-    "PostToolUse": [
-      { "matcher": "", "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
-    ],
     "Stop": [
       { "hooks": [{ "type": "command", "command": "echo waiting > \"$HOME/.claude/notch_status\"" }] }
+    ],
+    "SessionEnd": [
+      { "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
     ]
   }
 }
 ```
+
+Le halo reste orange pendant tout le tour (même avec plusieurs outils enchaînés), passe au bleu quand
+Claude te rend la main, et disparaît à la fin de la session.
 
 ⚠️ Si ton `settings.json` contient déjà une clé `hooks`, **ajoute** ces blocs aux tableaux existants
 au lieu d'écraser la clé. Détails, cohabitation avec d'autres hooks et étapes de vérification :

@@ -8,9 +8,15 @@ Code** qui le mettent à jour en temps réel selon l'activité du harness.
 
 | Hook | Valeur écrite | Visuel | Sens |
 |---|---|---|---|
-| `PreToolUse` | `working` | halo orange animé | un outil démarre, Claude travaille |
-| `PostToolUse` | `idle` | invisible | l'outil est terminé |
+| `UserPromptSubmit` | `working` | halo orange animé | tu envoies un prompt, Claude se met au travail |
+| `PreToolUse` | `working` | halo orange animé | un outil démarre, Claude travaille toujours |
 | `Stop` | `waiting` | pulsation bleue douce | Claude a fini son tour, il attend ta réponse |
+| `SessionEnd` | `idle` | invisible | la session Claude Code se termine |
+
+> **Pourquoi pas de `PostToolUse → idle` ?** Claude enchaîne souvent plusieurs outils dans un même
+> tour. Repasser à `idle` après *chaque* outil ferait clignoter le halo (`working → idle → working`)
+> alors que Claude est encore en train de travailler. On garde donc le halo orange pour tout le tour :
+> il ne passe au bleu qu'au `Stop` (Claude rend la main) et ne devient invisible qu'en fin de session.
 
 ## Snippet prêt à copier
 
@@ -19,14 +25,17 @@ Colle ce bloc dans `~/.claude/settings.json` :
 ```json
 {
   "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
+    ],
     "PreToolUse": [
       { "matcher": "", "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
     ],
-    "PostToolUse": [
-      { "matcher": "", "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
-    ],
     "Stop": [
       { "hooks": [{ "type": "command", "command": "echo waiting > \"$HOME/.claude/notch_status\"" }] }
+    ],
+    "SessionEnd": [
+      { "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
     ]
   }
 }
@@ -34,7 +43,8 @@ Colle ce bloc dans `~/.claude/settings.json` :
 
 Détails :
 
-- `"matcher": ""` cible **tous** les outils. Les événements `Stop` n'utilisent pas de matcher.
+- `"matcher": ""` cible **tous** les outils. Les événements `UserPromptSubmit`, `Stop` et `SessionEnd`
+  n'utilisent pas de matcher.
 - On utilise `$HOME` plutôt que `~` : l'expansion du tilde dépend du shell qui exécute le hook,
   `$HOME` est fiable partout.
 - `echo … >` tronque le fichier en place (événement `.write`), ce que la surveillance `DispatchSource`
@@ -60,12 +70,6 @@ Exemple de cohabitation avec un hook existant sur `PreToolUse` :
 }
 ```
 
-## Limitation connue
-
-`PostToolUse → idle` éteint le halo **entre deux outils** d'un même tour : la séquence visuelle est
-`working → idle → working`. C'est le comportement spécifié pour la première version ; il pourra être
-raffiné plus tard (par ex. ne repasser à `idle` que via le hook `Stop`) si le clignotement gêne.
-
 ## Vérification
 
 1. **Round-trip manuel** (l'app doit tourner pour voir le halo) :
@@ -75,10 +79,9 @@ raffiné plus tard (par ex. ne repasser à `idle` que via le hook `Stop`) si le 
    echo idle    > ~/.claude/notch_status   # invisible
    ```
 
-2. **Hooks réels** : après avoir collé le snippet, lance n'importe quelle commande dans Claude Code,
-   puis inspecte le fichier :
+2. **Hooks réels** : après avoir collé le snippet, le halo doit **rester orange** pendant tout un tour
+   de Claude (même avec plusieurs outils enchaînés), passer au **bleu** dès que Claude rend la main,
+   et **disparaître** quand tu quittes Claude Code. Tu peux inspecter le fichier à tout moment :
    ```sh
    cat ~/.claude/notch_status
    ```
-   Il doit valoir `working` pendant qu'un outil tourne, `idle` juste après, et `waiting` quand Claude
-   a rendu la main.

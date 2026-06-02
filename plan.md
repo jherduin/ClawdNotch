@@ -99,10 +99,12 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ## Phase 4 — Hooks Claude Code
 
-- [x] Documenter la config des 3 hooks dans `~/.claude/settings.json` :
-  - [x] `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
-  - [x] `PostToolUse` → écrire `idle`
+- [x] Documenter la config des hooks dans `~/.claude/settings.json` :
+  - [x] `UserPromptSubmit` + `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
   - [x] `Stop` → écrire `waiting`
+  - [x] `SessionEnd` → écrire `idle`
+  - _Mapping corrigé après test live : `PostToolUse → idle` retiré car il faisait clignoter le halo
+    entre deux outils d'un même tour (`working → idle → working`)._
 - [x] Fournir un snippet JSON prêt à copier (voir `docs/hooks.md` ; le README y renverra en Phase 5)
 - [x] Tester le cycle complet en lançant une vraie commande Claude Code
 
