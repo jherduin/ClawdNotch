@@ -99,12 +99,12 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ## Phase 4 — Hooks Claude Code
 
-- [ ] Documenter la config des 3 hooks dans `~/.claude/settings.json` :
-  - [ ] `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
-  - [ ] `PostToolUse` → écrire `idle`
-  - [ ] `Stop` → écrire `waiting`
-- [ ] Fournir un snippet JSON prêt à copier dans le README
-- [ ] Tester le cycle complet en lançant une vraie commande Claude Code
+- [x] Documenter la config des 3 hooks dans `~/.claude/settings.json` :
+  - [x] `PreToolUse` → écrire `working` dans `~/.claude/notch_status`
+  - [x] `PostToolUse` → écrire `idle`
+  - [x] `Stop` → écrire `waiting`
+- [x] Fournir un snippet JSON prêt à copier (voir `docs/hooks.md` ; le README y renverra en Phase 5)
+- [x] Tester le cycle complet en lançant une vraie commande Claude Code
 
 ---
 
