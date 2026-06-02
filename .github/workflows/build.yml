@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Sélectionner la dernière Xcode disponible
         # XcodeGen génère le projet au format Xcode 16 (objectVersion 77) ;
