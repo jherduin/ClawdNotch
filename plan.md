@@ -154,13 +154,17 @@ Architecture : une responsabilité par fichier (cf. CLAUDE.md).
 
 ---
 
-## Phase 8 — Route vers `v1.0.0` (Homebrew)
+## Phase 8 — Route vers `v1.0.0` (Homebrew) ✅
 
-- [ ] Stabiliser l'app sur plusieurs cycles `v0.x.x` (retours utilisateurs, bug fixes)
-- [ ] Créer un tap Homebrew personnel
-- [ ] Écrire le cask pointant vers le `.dmg` de la GitHub Release
-- [ ] Tester `brew install --cask <tap>/clawdnotch`
-- [ ] Release `v1.0.0` : mettre à jour le README avec l'install Homebrew en priorité
+- [x] Stabiliser l'app sur plusieurs cycles `v0.x.x` — _raccourci assumé : passage direct
+  `v0.1.0` → `v1.0.0` (décision mainteneur), pas de cycle intermédiaire_
+- [x] Créer un tap Homebrew personnel — [`jherduin/homebrew-tap`](https://github.com/jherduin/homebrew-tap) (public)
+- [x] Écrire le cask pointant vers le `.dmg` de la GitHub Release — `Casks/clawdnotch.rb`
+  (sha256 `053e3d71…`, `depends_on macos: ">= :sonoma"`, caveats Gatekeeper pour l'app non notarisée)
+- [x] Tester `brew install --cask jherduin/tap/clawdnotch` — `brew audit` OK, install OK,
+  `ClawdNotch.app` `1.0.0` dans `/Applications`, lancement sans icône Dock vérifié
+- [x] Release `v1.0.0` : PR #9 (CI verte, merge `d6d2fe3`), tag `v1.0.0`
+  (run `26793204615` success, `ClawdNotch-1.0.0.dmg`), README → Homebrew en méthode principale
 
 ---
 
