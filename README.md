@@ -2,9 +2,7 @@
 
 <sub>🇫🇷 [Lire en français](README.fr.md)</sub>
 
-> _🎞️ Animated demo coming soon — the halo around the notch in action._
-
-<!-- <p align="center"><img src="docs/demo.gif" alt="ClawdNotch — halo around the notch" width="720"></p> -->
+<p align="center"><img src="demo.gif" alt="ClawdNotch — halo around the notch" width="720"></p>
 
 [![Release](https://img.shields.io/github/v/release/jherduin/ClawdNotch?include_prereleases&sort=semver)](https://github.com/jherduin/ClawdNotch/releases)
 [![License: MIT](https://img.shields.io/github/license/jherduin/ClawdNotch)](LICENSE)
