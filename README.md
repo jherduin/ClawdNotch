@@ -1,55 +1,90 @@
 # ClawdNotch
 
-> _🎞️ Démo animée à venir — capture du halo autour du notch en action._
+<sub>🇫🇷 [Lire en français](README.fr.md)</sub>
 
-<!-- <p align="center"><img src="docs/demo.gif" alt="ClawdNotch — halo autour du notch" width="720"></p> -->
+> _🎞️ Animated demo coming soon — the halo around the notch in action._
+
+<!-- <p align="center"><img src="docs/demo.gif" alt="ClawdNotch — halo around the notch" width="720"></p> -->
 
 [![Release](https://img.shields.io/github/v/release/jherduin/ClawdNotch?include_prereleases&sort=semver)](https://github.com/jherduin/ClawdNotch/releases)
 [![License: MIT](https://img.shields.io/github/license/jherduin/ClawdNotch)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/jherduin/ClawdNotch/build.yml?branch=main&label=build)](https://github.com/jherduin/ClawdNotch/actions/workflows/build.yml)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-black?logo=apple)](https://www.apple.com/macos/)
 
-Un indicateur visuel ambiant qui colore le contour du notch de ton MacBook selon l'état de Claude Code.
-Aucune fenêtre, aucune icône dans le Dock — juste un halo discret qui te dit, d'un coup d'œil, ce que fait l'agent.
+**ClawdNotch is a tiny macOS app that paints an ambient halo around your MacBook's notch to mirror what Claude Code is doing right now.**
+No window, no Dock icon — just a discreet glow that tells you, at a glance, whether the agent is working, waiting on you, or idle.
 
-| État | Visuel |
-|---|---|
-| **Travaille** (`working`) | halo orange animé |
-| **Attend ta réponse** (`waiting`) | pulsation bleue douce |
-| **Inactif** (`idle`) | invisible |
+| State | Value in `~/.claude/notch_status` | Visual |
+|---|---|---|
+| **Working** | `working` | animated orange halo |
+| **Waiting for you** | `waiting` | gentle blue pulse |
+| **Idle** | `idle` | invisible |
 
-> Sur un Mac sans notch, l'app reste en mémoire sans rien afficher — aucun crash, aucune gêne.
+> On a Mac without a notch, the app stays in memory and simply draws nothing — no crash, no clutter.
 
 ---
 
-## Installation
+## Install
 
-### Homebrew _(prévu dès la v1.0.0)_
+### Homebrew _(planned for v1.0.0)_
 
 ```sh
 brew install --cask jherduin/tap/clawdnotch
 ```
 
-> Pas encore disponible : le cask Homebrew arrivera avec la première version stable. En attendant, utilise le téléchargement manuel.
+> Not available yet — the Homebrew cask ships with the first stable release. Until then, use the manual download.
 
-### Téléchargement manuel
+### Manual download
 
-1. Récupère le dernier `ClawdNotch.dmg` sur la page [Releases](https://github.com/jherduin/ClawdNotch/releases).
-2. Ouvre le `.dmg` et glisse **ClawdNotch** dans `/Applications`.
-3. Au premier lancement, macOS peut bloquer l'app (build non signé par un Developer ID) :
-   clic droit sur l'app → **Ouvrir** → **Ouvrir** pour confirmer.
+1. Grab the latest `ClawdNotch.dmg` from the [Releases](https://github.com/jherduin/ClawdNotch/releases) page.
+2. Open the `.dmg` and drag **ClawdNotch** into `/Applications`.
+3. On first launch, macOS may block the app (the build isn't signed with a Developer ID):
+   right-click the app → **Open** → **Open** to confirm.
 
-L'app se lance en arrière-plan. Pour qu'elle démarre à l'ouverture de session, ajoute-la dans
-**Réglages Système → Général → Ouverture → Ouverture automatique**.
+## Launch
+
+The app runs in the background with no window and no Dock icon. Launch it with:
+
+```sh
+open -a ClawdNotch
+```
+
+To start it automatically at login, add it under
+**System Settings → General → Login Items → Open at Login**.
+
+> Nothing visible? That's expected when Claude Code is idle. Trigger some activity, or write a test
+> value directly: `echo working > ~/.claude/notch_status` should light up the orange halo.
+
+## Stop
+
+Because the app has no Dock icon or menu bar item, quit it from the terminal:
+
+```sh
+killall ClawdNotch
+```
+
+(Or use **Activity Monitor**, search for `ClawdNotch`, and quit the process.) If you added it to Login
+Items, remove it there too so it doesn't come back at next login.
+
+## Uninstall
+
+```sh
+killall ClawdNotch                 # stop the app
+rm -rf /Applications/ClawdNotch.app # remove the app
+rm -f ~/.claude/notch_status        # remove the status file (optional)
+```
+
+Then delete the ClawdNotch entry from **System Settings → General → Login Items**, and remove the
+ClawdNotch hooks you added to `~/.claude/settings.json` (see below).
 
 ---
 
-## Configuration des hooks
+## Hooks setup
 
-ClawdNotch est **passif** : il lit `~/.claude/notch_status` et affiche le halo correspondant.
-Ce sont les **hooks Claude Code** qui mettent ce fichier à jour en temps réel.
+ClawdNotch is **passive**: it reads `~/.claude/notch_status` and renders the matching halo.
+The **Claude Code hooks** are what keep that file up to date in real time.
 
-Colle ce bloc dans `~/.claude/settings.json` :
+Paste this block into `~/.claude/settings.json`:
 
 ```json
 {
@@ -67,18 +102,17 @@ Colle ce bloc dans `~/.claude/settings.json` :
 }
 ```
 
-⚠️ Si ton `settings.json` contient déjà une clé `hooks`, **ajoute** ces blocs aux tableaux existants
-au lieu d'écraser la clé. Détails, cohabitation avec d'autres hooks et étapes de vérification :
+⚠️ If your `settings.json` already has a `hooks` key, **append** these blocks to the existing arrays
+instead of overwriting the key. Full details, coexistence with other hooks, and verification steps:
 **[docs/hooks.md](docs/hooks.md)**.
 
 ---
 
-## Contribuer
+## Contributing
 
-Les contributions sont bienvenues — voir **[CONTRIBUTING.md](CONTRIBUTING.md)** pour les conventions
-de commit, le modèle de branches et le process de PR. Ce projet suit un
-[Code de conduite](CODE_OF_CONDUCT.md).
+Contributions are welcome — see **[CONTRIBUTING.md](CONTRIBUTING.md)** for commit conventions, the
+branching model, and the PR process. This project follows a [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## Licence
+## License
 
 [MIT](LICENSE) — © 2026 jherduin.
