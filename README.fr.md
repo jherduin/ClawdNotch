@@ -84,33 +84,30 @@ hooks ClawdNotch que tu as ajoutés à `~/.claude/settings.json` (voir ci-dessou
 ClawdNotch est **passif** : il lit `~/.claude/notch_status` et affiche le halo correspondant.
 Ce sont les **hooks Claude Code** qui mettent ce fichier à jour en temps réel.
 
-Colle ce bloc dans `~/.claude/settings.json` :
+Le plus simple : ouvre Claude Code (dans n'importe quel projet) et colle le prompt ci-dessous. Il
+modifie `~/.claude/settings.json` pour toi et **fusionne** avec les hooks que tu as déjà au lieu de
+les écraser :
 
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      { "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "PreToolUse": [
-      { "matcher": "", "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "Stop": [
-      { "hooks": [{ "type": "command", "command": "echo waiting > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "SessionEnd": [
-      { "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
-    ]
-  }
-}
+```text
+Configure les hooks ClawdNotch dans mon ~/.claude/settings.json pour que ~/.claude/notch_status
+reflète en temps réel ce que tu fais. Modifie le JSON sur place, garde-le valide, et AJOUTE aux
+tableaux de hooks existants — ne supprime ni n'écrase aucun de mes autres hooks ou réglages.
+
+Ajoute ces quatre hooks, chacun lançant une seule commande shell :
+- UserPromptSubmit       → echo working > "$HOME/.claude/notch_status"
+- PreToolUse (matcher "") → echo working > "$HOME/.claude/notch_status"
+- Stop                   → echo waiting > "$HOME/.claude/notch_status"
+- SessionEnd             → echo idle > "$HOME/.claude/notch_status"
+
+Si un hook pointant déjà vers notch_status existe, laisse-le tel quel au lieu de le dupliquer.
+Quand c'est fait, montre-moi le bloc « hooks » obtenu.
 ```
 
 Le halo reste orange pendant tout le tour (même avec plusieurs outils enchaînés), passe au bleu quand
 Claude te rend la main, et disparaît à la fin de la session.
 
-⚠️ Si ton `settings.json` contient déjà une clé `hooks`, **ajoute** ces blocs aux tableaux existants
-au lieu d'écraser la clé. Détails, cohabitation avec d'autres hooks et étapes de vérification :
-**[docs/hooks.md](docs/hooks.md)**.
+> Tu préfères le faire à la main ? Le bloc JSON complet, les notes de cohabitation et les étapes de
+> vérification sont dans **[docs/hooks.md](docs/hooks.md)**.
 
 ---
 

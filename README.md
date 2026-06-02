@@ -84,33 +84,30 @@ ClawdNotch hooks you added to `~/.claude/settings.json` (see below).
 ClawdNotch is **passive**: it reads `~/.claude/notch_status` and renders the matching halo.
 The **Claude Code hooks** are what keep that file up to date in real time.
 
-Paste this block into `~/.claude/settings.json`:
+The easiest way to set them up: open Claude Code (in any project) and paste the prompt below. It edits
+`~/.claude/settings.json` for you and **merges** with any hooks you already have instead of
+overwriting them:
 
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      { "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "PreToolUse": [
-      { "matcher": "", "hooks": [{ "type": "command", "command": "echo working > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "Stop": [
-      { "hooks": [{ "type": "command", "command": "echo waiting > \"$HOME/.claude/notch_status\"" }] }
-    ],
-    "SessionEnd": [
-      { "hooks": [{ "type": "command", "command": "echo idle > \"$HOME/.claude/notch_status\"" }] }
-    ]
-  }
-}
+```text
+Set up the ClawdNotch hooks in my ~/.claude/settings.json so that ~/.claude/notch_status reflects
+what you're doing in real time. Edit the JSON in place, keep it valid, and APPEND to any existing
+hook arrays — do not remove or overwrite my other hooks or settings.
+
+Add these four hooks, each running a single shell command:
+- UserPromptSubmit       → echo working > "$HOME/.claude/notch_status"
+- PreToolUse (matcher "") → echo working > "$HOME/.claude/notch_status"
+- Stop                   → echo waiting > "$HOME/.claude/notch_status"
+- SessionEnd             → echo idle > "$HOME/.claude/notch_status"
+
+If a hook pointing at notch_status already exists, leave it as-is rather than duplicating it.
+When you're done, show me the resulting "hooks" block.
 ```
 
 The halo stays orange for the whole turn (even across multiple tool calls), turns blue when Claude
 hands control back to you, and disappears when the session ends.
 
-⚠️ If your `settings.json` already has a `hooks` key, **append** these blocks to the existing arrays
-instead of overwriting the key. Full details, coexistence with other hooks, and verification steps:
-**[docs/hooks.md](docs/hooks.md)**.
+> Prefer to wire it up by hand? The full JSON block, coexistence notes, and verification steps live in
+> **[docs/hooks.md](docs/hooks.md)**.
 
 ---
 
