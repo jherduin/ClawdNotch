@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) et le pr
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-02
+
 ### Added
 
 - App macOS sans fenêtre ni icône Dock (`LSUIElement`), affichant un halo ambiant autour du notch.
@@ -30,4 +32,5 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) et le pr
   (fusion automatique avec les hooks existants) ; le bloc JSON manuel reste en fallback dans
   `docs/hooks.md`.
 
-[Unreleased]: https://github.com/jherduin/ClawdNotch/commits/main
+[Unreleased]: https://github.com/jherduin/ClawdNotch/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/jherduin/ClawdNotch/releases/tag/v0.1.0
