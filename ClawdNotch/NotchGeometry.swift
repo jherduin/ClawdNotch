@@ -10,6 +10,11 @@ enum NotchGeometry {
     /// Marge (en points) ajoutée autour du notch pour laisser respirer le halo.
     static let glowPadding: CGFloat = 30
 
+    /// Rayon des deux coins *inférieurs* du notch — les seuls visibles. Le bord
+    /// supérieur étant au ras de l'écran (hors champ), ses coins n'existent pas
+    /// visuellement. Valeur calée sur le rayon physique du notch des MacBook Pro.
+    static let cornerRadius: CGFloat = 10
+
     /// Premier écran disposant d'un notch (inset haut + zones auxiliaires).
     ///
     /// On ne se fie pas à `NSScreen.main` : dans une app `.accessory` sans fenêtre

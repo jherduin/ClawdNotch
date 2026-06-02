@@ -21,4 +21,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) et le pr
 - Publication automatisée (`release.yml`) : sur tag `v*`, génération d'un `.dmg` et création de la GitHub Release avec l'asset attaché.
 - Templates GitHub : rapport de bug, demande de fonctionnalité et pull request.
 
+### Changed
+
+- Halo affiné : trait hairline épousant la silhouette visible du notch (coins bas arrondis au rayon
+  réel), dégradé concentrant l'éclat sur le bord inférieur, et lueur plus présente pour le bleu
+  (`waiting`) que pour l'orange (`working`).
+- README : la configuration des hooks se fait désormais via un prompt à copier dans Claude Code
+  (fusion automatique avec les hooks existants) ; le bloc JSON manuel reste en fallback dans
+  `docs/hooks.md`.
+
 [Unreleased]: https://github.com/jherduin/ClawdNotch/commits/main
